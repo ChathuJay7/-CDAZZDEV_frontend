@@ -1,9 +1,11 @@
 "use client";
 
+import { login } from "@/app/redux/authSlice";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,6 +13,7 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [errorDisplay, setErrorDisplay] = useState(false);
 
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -38,6 +41,7 @@ export default function LoginForm() {
       if(response.data){
           const token = response.data.token;
           localStorage.setItem("authToken", token);
+          dispatch(login(response.data))
       }
   
       router.replace("/");
