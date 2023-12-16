@@ -76,7 +76,8 @@ const BlogPosts = () => {
             className="p-3 bg-slate-200 border border-slate-300 hover:bg-white my-3 flex justify-between gap-5 items-center"
           >
             <div>
-              <h2 className="font-bold text-2xl">{p.title}</h2>
+
+              <Link href={`/post/${p._id}`}><h2 className="font-bold text-2xl">{p.title}</h2></Link>
               <div className="text-lg mt-2">{p.description}</div>
               <div className="text-xs mt-2 text-gray-600">
                 posted By: {p.userId.username}
