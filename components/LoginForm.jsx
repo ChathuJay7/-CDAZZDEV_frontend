@@ -57,7 +57,7 @@ export default function LoginForm() {
   
 
   return (
-    <div className="grid place-items-center ">
+    <div className="grid place-items-center">
       <div className="shadow-lg p-5 rounded-lg mt-20 border-t-4 border-slate-500">
         <h1 className="text-xl font-bold py-5 text-center">Login</h1>
 

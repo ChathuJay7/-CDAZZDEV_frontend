@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
 //import RemoveBtn from './RemoveBtn'
@@ -7,48 +7,25 @@ import { redirect, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { HiOutlineTrash, HiPencilAlt } from "react-icons/hi";
 
-// const getPosts = async () => {
-//   try {
-//     const res = await fetch("http://localhost:5000/post/", {
-//       cache: "no-store",
-//     });
-
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch todos");
-//     }
-
-//     return res.json();
-//   } catch (error) {
-//     console.log("Error loading todos: ", error);
-//   }
-// };
-
 const BlogPosts = () => {
-
-    const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
 
-  // const { posts } = await getPosts();
-
-  const token = localStorage.getItem("authToken")
-
   useLayoutEffect(() => {
-
-    if(!user){
-      redirect('/login')
+    if (!user) {
+      redirect("/login");
     }
-  }, [])
+  }, []);
 
-
-  console.log(user)
+  console.log(user);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('http://localhost:5000/post', {
-          cache: "no-store"
+        const res = await fetch("http://localhost:5000/post", {
+          cache: "no-store",
         });
 
         if (!res.ok) {
@@ -65,21 +42,21 @@ const BlogPosts = () => {
     fetchPosts();
   }, []);
 
-    const handleRemovePost = async(id) => {
-        const confirmed = confirm("Are you sure?");
+  const handleRemovePost = async (id) => {
+    const confirmed = confirm("Are you want to delete?");
 
-        if(confirmed) {
-            const res = await fetch(`http://localhost:5000/post/${id}`, {
-                method: "DELETE"
-            })
-            
-            if(res.ok) {
-                router.refresh();
-            }
-        }
+    if (confirmed) {
+      const res = await fetch(`http://localhost:5000/post/${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        router.refresh();
+      }
     }
+  };
 
-    console.log(posts)
+  console.log(posts);
   return (
     <>
       <div className="flex justify-end mt-5 mb-5 ">
@@ -90,35 +67,39 @@ const BlogPosts = () => {
           + Add Post
         </Link>
       </div>
-      {posts && user && posts.map((p) => (
-        // eslint-disable-next-line react/jsx-key
-        <div
-          key={p._id}
-          className="p-3 bg-slate-200 border border-slate-300 hover:bg-white my-3 flex justify-between gap-5 items-center"
-        >
-          <div>
-            <h2 className="font-bold text-2xl">{p.title}</h2>
-            <div className="text-lg mt-2">{p.description}</div>  
-            <div className="text-xs mt-2 text-gray-600">posted By: {p.userId.username}</div>  
-          </div>
+      {posts &&
+        user &&
+        posts.map((p) => (
+          // eslint-disable-next-line react/jsx-key
+          <div
+            key={p._id}
+            className="p-3 bg-slate-200 border border-slate-300 hover:bg-white my-3 flex justify-between gap-5 items-center"
+          >
+            <div>
+              <h2 className="font-bold text-2xl">{p.title}</h2>
+              <div className="text-lg mt-2">{p.description}</div>
+              <div className="text-xs mt-2 text-gray-600">
+                posted By: {p.userId.username}
+              </div>
+            </div>
 
-          <div className="flex gap-2">
-            {user._id === p.userId._id && (
-              <>
-                <button
-                  onClick={() => handleRemovePost(p._id)}
-                  className="text-red-400"
-                >
-                  <HiOutlineTrash size={24} />
-                </button>
-                <Link href={`/editPost/${p._id}`}>
-                  <HiPencilAlt size={24} />
-                </Link>
-              </>
-            )}
+            <div className="flex gap-2">
+              {user._id === p.userId._id && (
+                <>
+                  <button
+                    onClick={() => handleRemovePost(p._id)}
+                    className="text-red-400"
+                  >
+                    <HiOutlineTrash size={24} />
+                  </button>
+                  <Link href={`/editPost/${p._id}`}>
+                    <HiPencilAlt size={24} />
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </>
   );
 };

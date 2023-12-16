@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useLayoutEffect, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { FaBackward } from "react-icons/fa";
 
 const AddPostForm = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +11,12 @@ const AddPostForm = () => {
 
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
+
+  useLayoutEffect(() => {
+    if (!user) {
+      redirect("/login");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ const AddPostForm = () => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ title, description, userId:user._id }),
+        body: JSON.stringify({ title, description, userId: user._id }),
       });
 
       if (res.ok) {
@@ -39,12 +46,24 @@ const AddPostForm = () => {
     }
   };
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-5 mt-5 justify-center items-center bg-slate-200 py-10"
+      className="flex flex-col gap-5 mt-5 justify-center items-center bg-slate-200 py-10 relative"
     >
+      <button
+        type="button"
+        onClick={handleGoBack}
+        className="absolute top-2 left-2 bg-slate-600 text-white hover:bg-white hover:text-slate-600 border border-slate-600 font-bold px-6 py-3 mr-2"
+      >
+        <FaBackward />
+      </button>
       <h1 className="text-center font-bold text-2xl">Add Post</h1>
+
       <input
         className="border border-slate-500 px-8 py-2 w-[80%]"
         onChange={(e) => setTitle(e.target.value)}
