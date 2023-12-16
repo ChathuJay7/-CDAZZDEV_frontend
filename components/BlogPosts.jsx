@@ -36,7 +36,7 @@ const BlogPosts = async () => {
     return (
         <>
         <div className='flex justify-end mt-5 mb-5 '>
-            <Link className="bg-slate-600 text-white hover:bg-white hover:text-slate-600 border border-slate-600 rounded-md px-6 py-3 font-bold" href={'/addTodo'}>+ Add Post</Link>
+            <Link className="bg-slate-600 text-white hover:bg-white hover:text-slate-600 border border-slate-600 rounded-md px-6 py-3 font-bold" href={'/addPost'}>+ Add Post</Link>
         </div>
         {posts.map((p) => (
             // eslint-disable-next-line react/jsx-key
