@@ -54,6 +54,9 @@ const BlogPosts = async () => {
                   <HiPencilAlt size={24} />
                 </Link>
                 )} */}
+                <Link href={`/editPost/${p._id}`}>
+                    <HiPencilAlt size={24} />
+                </Link>
                 
               </div>
             </div>
