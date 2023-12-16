@@ -58,6 +58,19 @@ export default function RegisterForm() {
     <div className="grid place-items-center">
       <div className="shadow-lg p-5 rounded-lg mt-20 border-t-4 border-slate-500">
         <h1 className="text-xl font-bold py-5 text-center">Register</h1>
+
+        {error && errorDisplay && (
+            <div className="bg-red-500 text-white w-full text-center text-sm py-1 px-3 rounded-md mt-2 mb-3">
+              {error}
+            </div>
+          )}
+
+          {success && successDisplay && (
+            <div className="bg-green-500 text-white w-full text-center text-sm py-1 px-3 rounded-md mt-2 mb-3">
+              {success}
+            </div>
+          )}
+
         <form onSubmit={handleSignup} className="flex flex-col gap-3">
           <input
             className="w-[400px] border border-gray-200 py-2 px-6 bg-zinc-100/40"
@@ -81,17 +94,7 @@ export default function RegisterForm() {
             Register
           </button>
 
-          {error && errorDisplay && (
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
-
-          {success && successDisplay && (
-            <div className="bg-green-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-              {success}
-            </div>
-          )}
+          
 
           <Link href={"/"} className="text-sm mt-3 text-right">
             Already have an account?{" "}

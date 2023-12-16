@@ -21,14 +21,17 @@ export default function Navbar() {
       <Link className="text-white font-bold" href={"/"}>
         Blog Posts
       </Link>
-      <p className="text-white">{user?.username}</p>
+
       {user && (
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white hover:bg-white hover:text-red-600 rounded-md font-bold px-6 py-2"
-        >
-          Logout
-        </button>
+        <>
+          <p className="text-white">{user?.username}</p>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white hover:bg-white hover:text-red-600 rounded-md font-bold px-6 py-2"
+          >
+            Logout
+          </button>
+        </>
       )}
     </nav>
   );

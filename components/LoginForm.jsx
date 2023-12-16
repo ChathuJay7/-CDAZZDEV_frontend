@@ -60,6 +60,13 @@ export default function LoginForm() {
     <div className="grid place-items-center ">
       <div className="shadow-lg p-5 rounded-lg mt-20 border-t-4 border-slate-500">
         <h1 className="text-xl font-bold py-5 text-center">Login</h1>
+
+        {error && errorDisplay &&(
+            <div className="bg-red-500 text-white w-full text-center text-sm py-1 px-3 rounded-md mt-2 mb-3">
+              {error}
+            </div>
+        )}
+
         <form onSubmit={handleLogin} className="flex flex-col gap-3">
           <input
             className="w-[400px] border border-gray-200 py-2 px-6"
@@ -77,11 +84,7 @@ export default function LoginForm() {
             Login
           </button>
 
-          {error && errorDisplay &&(
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
+          
 
           <Link href={"/register"} className="text-sm mt-3 text-right">
             Do not have an account?{" "}
